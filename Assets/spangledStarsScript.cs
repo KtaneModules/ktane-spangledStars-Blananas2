@@ -36,6 +36,8 @@ public class spangledStarsScript : MonoBehaviour {
     string TopThreeStars = "";
     string SortedTopThree = "";
     string Input = "";
+    string Keyboard = "ROYGBIV";
+    string StarsToKeys = "";
 
     //Logging
     static int moduleIdCounter = 1;
@@ -65,6 +67,7 @@ public class spangledStarsScript : MonoBehaviour {
                 default: break;
             }
         }
+        Debug.LogFormat("[Spangled Stars #{0}] Colors of stars in clockwise order: {1}{2}{3}{4}{5}{6}{7}", moduleId, Keyboard[ColorOrder[0]], Keyboard[ColorOrder[1]], Keyboard[ColorOrder[2]], Keyboard[ColorOrder[3]], Keyboard[ColorOrder[4]], Keyboard[ColorOrder[5]], Keyboard[ColorOrder[6]]);
 
         ModNames = Bomb.GetSolvableModuleNames().Count();
 
@@ -114,6 +117,10 @@ public class spangledStarsScript : MonoBehaviour {
         Debug.LogFormat("[Spangled Stars #{0}] First letter of words used (not encrypted): {1}", moduleId, UsedWords);
         Debug.LogFormat("[Spangled Stars #{0}] Keys of the top three stars: {1}", moduleId, SortedTopThree);
 
+        for (int i = 0; i < 7; i++) {
+            StarsToKeys += KeyOrder[ColorOrder[i]];
+        }
+
         switch (SortedTopThree) {
             case "BCE":
             case "CEG": Offset = 1; break;
@@ -157,13 +164,13 @@ public class spangledStarsScript : MonoBehaviour {
 
         for (int i = 0; i < 3; i++) {
             switch (UsedKeys[i]) {
-                case 'c': OutsideLetters[KeyOrder.IndexOf('C')].text = OutsideLetters[KeyOrder.IndexOf('C')].text + Caesar(UsedWords[i]); break;
-                case 'd': OutsideLetters[KeyOrder.IndexOf('D')].text = OutsideLetters[KeyOrder.IndexOf('D')].text + Caesar(UsedWords[i]); break;
-                case 'e': OutsideLetters[KeyOrder.IndexOf('E')].text = OutsideLetters[KeyOrder.IndexOf('E')].text + Caesar(UsedWords[i]); break;
-                case 'f': OutsideLetters[KeyOrder.IndexOf('F')].text = OutsideLetters[KeyOrder.IndexOf('F')].text + Caesar(UsedWords[i]); break;
-                case 'g': OutsideLetters[KeyOrder.IndexOf('G')].text = OutsideLetters[KeyOrder.IndexOf('G')].text + Caesar(UsedWords[i]); break;
-                case 'a': OutsideLetters[KeyOrder.IndexOf('A')].text = OutsideLetters[KeyOrder.IndexOf('A')].text + Caesar(UsedWords[i]); break;
-                case 'b': OutsideLetters[KeyOrder.IndexOf('B')].text = OutsideLetters[KeyOrder.IndexOf('B')].text + Caesar(UsedWords[i]); break;
+                case 'c': OutsideLetters[StarsToKeys.IndexOf('C')].text = OutsideLetters[StarsToKeys.IndexOf('C')].text + Caesar(UsedWords[i]); break;
+                case 'd': OutsideLetters[StarsToKeys.IndexOf('D')].text = OutsideLetters[StarsToKeys.IndexOf('D')].text + Caesar(UsedWords[i]); break;
+                case 'e': OutsideLetters[StarsToKeys.IndexOf('E')].text = OutsideLetters[StarsToKeys.IndexOf('E')].text + Caesar(UsedWords[i]); break;
+                case 'f': OutsideLetters[StarsToKeys.IndexOf('F')].text = OutsideLetters[StarsToKeys.IndexOf('F')].text + Caesar(UsedWords[i]); break;
+                case 'g': OutsideLetters[StarsToKeys.IndexOf('G')].text = OutsideLetters[StarsToKeys.IndexOf('G')].text + Caesar(UsedWords[i]); break;
+                case 'a': OutsideLetters[StarsToKeys.IndexOf('A')].text = OutsideLetters[StarsToKeys.IndexOf('A')].text + Caesar(UsedWords[i]); break;
+                case 'b': OutsideLetters[StarsToKeys.IndexOf('B')].text = OutsideLetters[StarsToKeys.IndexOf('B')].text + Caesar(UsedWords[i]); break;
                 default: break;
             }
         }
@@ -205,70 +212,69 @@ public class spangledStarsScript : MonoBehaviour {
     }
 
     IEnumerator Flashing () {
-        //1st flash
         switch (UsedKeys[0]) {
-            case 'c': Stars[KeyOrder.IndexOf('C')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'd': Stars[KeyOrder.IndexOf('D')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'e': Stars[KeyOrder.IndexOf('E')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'f': Stars[KeyOrder.IndexOf('F')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'g': Stars[KeyOrder.IndexOf('G')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'a': Stars[KeyOrder.IndexOf('A')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'b': Stars[KeyOrder.IndexOf('B')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'c': Stars[StarsToKeys.IndexOf('C')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'd': Stars[StarsToKeys.IndexOf('D')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'e': Stars[StarsToKeys.IndexOf('E')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'f': Stars[StarsToKeys.IndexOf('F')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'g': Stars[StarsToKeys.IndexOf('G')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'a': Stars[StarsToKeys.IndexOf('A')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'b': Stars[StarsToKeys.IndexOf('B')].GetComponent<MeshRenderer>().material = Colors[7]; break;
             default: break;
         }
         yield return new WaitForSeconds(0.5f);
         switch (UsedKeys[0]) {
-            case 'c': Stars[KeyOrder.IndexOf('C')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('C')]]; break;
-            case 'd': Stars[KeyOrder.IndexOf('D')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('D')]]; break;
-            case 'e': Stars[KeyOrder.IndexOf('E')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('E')]]; break;
-            case 'f': Stars[KeyOrder.IndexOf('F')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('F')]]; break;
-            case 'g': Stars[KeyOrder.IndexOf('G')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('G')]]; break;
-            case 'a': Stars[KeyOrder.IndexOf('A')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('A')]]; break;
-            case 'b': Stars[KeyOrder.IndexOf('B')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('B')]]; break;
+            case 'c': Stars[StarsToKeys.IndexOf('C')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('C')]]; break;
+            case 'd': Stars[StarsToKeys.IndexOf('D')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('D')]]; break;
+            case 'e': Stars[StarsToKeys.IndexOf('E')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('E')]]; break;
+            case 'f': Stars[StarsToKeys.IndexOf('F')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('F')]]; break;
+            case 'g': Stars[StarsToKeys.IndexOf('G')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('G')]]; break;
+            case 'a': Stars[StarsToKeys.IndexOf('A')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('A')]]; break;
+            case 'b': Stars[StarsToKeys.IndexOf('B')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('B')]]; break;
             default: break;
         }
         yield return new WaitForSeconds(0.1f);
         switch (UsedKeys[1]) {
-            case 'c': Stars[KeyOrder.IndexOf('C')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'd': Stars[KeyOrder.IndexOf('D')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'e': Stars[KeyOrder.IndexOf('E')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'f': Stars[KeyOrder.IndexOf('F')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'g': Stars[KeyOrder.IndexOf('G')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'a': Stars[KeyOrder.IndexOf('A')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'b': Stars[KeyOrder.IndexOf('B')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'c': Stars[StarsToKeys.IndexOf('C')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'd': Stars[StarsToKeys.IndexOf('D')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'e': Stars[StarsToKeys.IndexOf('E')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'f': Stars[StarsToKeys.IndexOf('F')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'g': Stars[StarsToKeys.IndexOf('G')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'a': Stars[StarsToKeys.IndexOf('A')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'b': Stars[StarsToKeys.IndexOf('B')].GetComponent<MeshRenderer>().material = Colors[7]; break;
             default: break;
         }
         yield return new WaitForSeconds(0.5f);
         switch (UsedKeys[1]) {
-            case 'c': Stars[KeyOrder.IndexOf('C')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('C')]]; break;
-            case 'd': Stars[KeyOrder.IndexOf('D')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('D')]]; break;
-            case 'e': Stars[KeyOrder.IndexOf('E')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('E')]]; break;
-            case 'f': Stars[KeyOrder.IndexOf('F')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('F')]]; break;
-            case 'g': Stars[KeyOrder.IndexOf('G')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('G')]]; break;
-            case 'a': Stars[KeyOrder.IndexOf('A')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('A')]]; break;
-            case 'b': Stars[KeyOrder.IndexOf('B')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('B')]]; break;
+            case 'c': Stars[StarsToKeys.IndexOf('C')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('C')]]; break;
+            case 'd': Stars[StarsToKeys.IndexOf('D')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('D')]]; break;
+            case 'e': Stars[StarsToKeys.IndexOf('E')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('E')]]; break;
+            case 'f': Stars[StarsToKeys.IndexOf('F')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('F')]]; break;
+            case 'g': Stars[StarsToKeys.IndexOf('G')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('G')]]; break;
+            case 'a': Stars[StarsToKeys.IndexOf('A')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('A')]]; break;
+            case 'b': Stars[StarsToKeys.IndexOf('B')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('B')]]; break;
             default: break;
         }
         yield return new WaitForSeconds(0.1f);
         switch (UsedKeys[2]) {
-            case 'c': Stars[KeyOrder.IndexOf('C')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'd': Stars[KeyOrder.IndexOf('D')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'e': Stars[KeyOrder.IndexOf('E')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'f': Stars[KeyOrder.IndexOf('F')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'g': Stars[KeyOrder.IndexOf('G')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'a': Stars[KeyOrder.IndexOf('A')].GetComponent<MeshRenderer>().material = Colors[7]; break;
-            case 'b': Stars[KeyOrder.IndexOf('B')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'c': Stars[StarsToKeys.IndexOf('C')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'd': Stars[StarsToKeys.IndexOf('D')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'e': Stars[StarsToKeys.IndexOf('E')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'f': Stars[StarsToKeys.IndexOf('F')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'g': Stars[StarsToKeys.IndexOf('G')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'a': Stars[StarsToKeys.IndexOf('A')].GetComponent<MeshRenderer>().material = Colors[7]; break;
+            case 'b': Stars[StarsToKeys.IndexOf('B')].GetComponent<MeshRenderer>().material = Colors[7]; break;
             default: break;
         }
         yield return new WaitForSeconds(0.5f);
         switch (UsedKeys[2]) {
-            case 'c': Stars[KeyOrder.IndexOf('C')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('C')]]; break;
-            case 'd': Stars[KeyOrder.IndexOf('D')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('D')]]; break;
-            case 'e': Stars[KeyOrder.IndexOf('E')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('E')]]; break;
-            case 'f': Stars[KeyOrder.IndexOf('F')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('F')]]; break;
-            case 'g': Stars[KeyOrder.IndexOf('G')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('G')]]; break;
-            case 'a': Stars[KeyOrder.IndexOf('A')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('A')]]; break;
-            case 'b': Stars[KeyOrder.IndexOf('B')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[KeyOrder.IndexOf('B')]]; break;
+            case 'c': Stars[StarsToKeys.IndexOf('C')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('C')]]; break;
+            case 'd': Stars[StarsToKeys.IndexOf('D')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('D')]]; break;
+            case 'e': Stars[StarsToKeys.IndexOf('E')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('E')]]; break;
+            case 'f': Stars[StarsToKeys.IndexOf('F')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('F')]]; break;
+            case 'g': Stars[StarsToKeys.IndexOf('G')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('G')]]; break;
+            case 'a': Stars[StarsToKeys.IndexOf('A')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('A')]]; break;
+            case 'b': Stars[StarsToKeys.IndexOf('B')].GetComponent<MeshRenderer>().material = Colors[ColorOrder[StarsToKeys.IndexOf('B')]]; break;
             default: break;
         }
         yield return new WaitForSeconds(0.6f);
