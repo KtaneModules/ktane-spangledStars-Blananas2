@@ -288,4 +288,50 @@ public class spangledStarsScript : MonoBehaviour {
             return '#';
         }
     }
+
+    //toilet paper support
+    public string TwitchHelpMessage = "Use '!{0} press 1 2 3 4 5 6 7' to press stars 1, 2, 3, 4, 5, 6 and 7. The buttons are numbered from 1 to 7 going clockwise starting from the topmost.";
+
+    public IEnumerator ProcessTwitchCommand(string command)
+    {
+		string commfinal=command.Replace("press ", "");
+		string[] digitstring = commfinal.Split(' ');
+		int tried;
+		int index =1;
+		foreach(string digit in digitstring){
+			if(int.TryParse(digit, out tried)){
+				if(index<=7){
+					tried=int.Parse(digit);
+					index+=1;
+					if(tried<8){
+						if(tried>0){
+					yield return null;
+					yield return Stars[tried-1];
+					yield return Stars[tried-1];
+						}
+						else{
+							yield return null;
+							yield return "sendtochaterror Number too small!";
+							yield break;
+						}
+					}
+					else{
+						yield return null;
+						yield return "sendtochaterror Number too big!";
+						yield break;
+					}
+				}
+				else{
+					yield return null;
+					yield return "sendtochaterror Too many digits!";
+					yield break;
+				}
+			}
+			else{
+				yield return null;
+				yield return "sendtochaterror Digit not valid.";
+				yield break;
+			}
+		}
+	}
 }

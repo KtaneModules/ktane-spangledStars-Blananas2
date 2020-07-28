@@ -3192,6 +3192,9 @@ MonoBehaviour:
   - {fileID: 102803645917753666}
   Front: {fileID: 1535873020215446}
   Back: {fileID: 1006288436286932}
+  TwitchHelpMessage: Use '!{0} press 1 2 3 4 5 6 7' to press stars 1, 2, 3, 4, 5,
+    6 and 7. The buttons are numbered from 1 to 7 going clockwise starting from the
+    topmost.
 --- !u!114 &114994897491513234
 MonoBehaviour:
   m_ObjectHideFlags: 1
