@@ -28,7 +28,7 @@ public class spangledStarsScript : MonoBehaviour {
     int Presses = 0;
     int ModNames = 0;
     string KeyOrder = "";
-    string Words = "O#SCYSBTDALLWSPLWHATTLLGIWBSABSTTPILFOTRPWWWSGLLSIATRERGTBBSIAGPTTNTOFWSTOSDTTSSGBNEYTWVOTLNOTFATHOTB";
+    string Words = "O#SCYSBTDELLWSPLWHATTLLGIWBSABSTTPILFOTRPWWWSGLLSIATRERGTBBSIAGPTTNTOFWSTOSDTTSSGBNEYTWVOTLNOTFATHOTB";
     string Keys =  "gecegcedcefgggedcbcbccegcgecegcedcefgggedcbabccegceeefggfedefffedcbabcefggcccbaaadfedccbggcdefgcdefdc";
     string UsedWords = "";
     string UsedKeys = "";
