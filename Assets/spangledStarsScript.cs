@@ -334,4 +334,12 @@ public class spangledStarsScript : MonoBehaviour {
 			}
 		}
 	}
+
+    IEnumerator TwitchHandleForcedSolve() {
+        Stars[StarsToKeys.IndexOf(UsedKeys[3].ToString().ToUpper())].OnInteract();
+        yield return new WaitForSeconds(0.1f);
+        Stars[StarsToKeys.IndexOf(UsedKeys[4].ToString().ToUpper())].OnInteract();
+        yield return new WaitForSeconds(0.1f);
+        Stars[StarsToKeys.IndexOf(UsedKeys[5].ToString().ToUpper())].OnInteract();
+    }
 }

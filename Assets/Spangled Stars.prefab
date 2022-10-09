@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 114139553842080666}
   - component: {fileID: 114989262984447440}
   m_Layer: 0
-  m_Name: Template
+  m_Name: Spangled Stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2541,15 +2541,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Parent: {fileID: 0}
   Children:
+  - {fileID: 0}
   - {fileID: 114740819202729432}
-  - {fileID: 114677288076722412}
-  - {fileID: 114604343972567310}
-  - {fileID: 114123787397136682}
-  - {fileID: 114316371759606710}
-  - {fileID: 114255530322177202}
   - {fileID: 114207468010246928}
+  - {fileID: 114677288076722412}
+  - {fileID: 114255530322177202}
+  - {fileID: 114604343972567310}
+  - {fileID: 114316371759606710}
+  - {fileID: 114123787397136682}
   IsPassThrough: 0
-  ChildRowLength: 0
+  ChildRowLength: 2
   Highlight: {fileID: 114570430299588062}
   SelectableColliders: []
   DefaultSelectableIndex: 0
