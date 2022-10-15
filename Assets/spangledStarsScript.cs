@@ -10,6 +10,7 @@ public class spangledStarsScript : MonoBehaviour {
 
     public KMBombInfo Bomb;
     public KMAudio Audio;
+    public KMColorblindMode CBthing;
 
     public KMSelectable[] Stars;
     public Material[] Colors; //ROYGBIVW
@@ -38,6 +39,8 @@ public class spangledStarsScript : MonoBehaviour {
     string Input = "";
     string Keyboard = "ROYGBIV";
     string StarsToKeys = "";
+    string HowMuchOfAnIdiotAmIMostOfTheseVariableNamesAreConfusingAsFuckWhatIsWrongWithMe = "ROYGBIV";
+    bool CBactive = false;
 
     //Logging
     static int moduleIdCounter = 1;
@@ -53,18 +56,24 @@ public class spangledStarsScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        if (CBthing.ColorblindModeActive) {
+            CBactive = true;
+        }
+
         ColorOrder.Shuffle();
         for (int i = 0; i < 7; i++) {
             Stars[i].GetComponent<MeshRenderer>().material = Colors[ColorOrder[i]];
-            switch (ColorOrder[i]) {
-                case 0: InsideLetters[i].text = "R"; break;
-                case 1: InsideLetters[i].text = "O"; break;
-                case 2: InsideLetters[i].text = "Y"; break;
-                case 3: InsideLetters[i].text = "G"; break;
-                case 4: InsideLetters[i].text = "B"; break;
-                case 5: InsideLetters[i].text = "I"; break;
-                case 6: InsideLetters[i].text = "V"; break;
-                default: break;
+            if (CBactive) {
+                switch (ColorOrder[i]) {
+                    case 0: InsideLetters[i].text = "R"; break;
+                    case 1: InsideLetters[i].text = "O"; break;
+                    case 2: InsideLetters[i].text = "Y"; break;
+                    case 3: InsideLetters[i].text = "G"; break;
+                    case 4: InsideLetters[i].text = "B"; break;
+                    case 5: InsideLetters[i].text = "I"; break;
+                    case 6: InsideLetters[i].text = "V"; break;
+                    default: break;
+                }
             }
         }
         Debug.LogFormat("[Spangled Stars #{0}] Colors of stars in clockwise order: {1}{2}{3}{4}{5}{6}{7}", moduleId, Keyboard[ColorOrder[0]], Keyboard[ColorOrder[1]], Keyboard[ColorOrder[2]], Keyboard[ColorOrder[3]], Keyboard[ColorOrder[4]], Keyboard[ColorOrder[5]], Keyboard[ColorOrder[6]]);
@@ -290,10 +299,20 @@ public class spangledStarsScript : MonoBehaviour {
     }
 
     //toilet paper support
-    public string TwitchHelpMessage = "Use '!{0} press 1 2 3 4 5 6 7' to press stars 1, 2, 3, 4, 5, 6 and 7. The buttons are numbered from 1 to 7 going clockwise starting from the topmost.";
+    public string TwitchHelpMessage = "Use '!{0} press 1 2 3 4 5 6 7' to press stars 1, 2, 3, 4, 5, 6 and 7. The buttons are numbered from 1 to 7 going clockwise starting from the topmost. | !{0} colorblind [Toggles colorblind mode]";
 
     public IEnumerator ProcessTwitchCommand(string command)
     {
+        if (Regex.IsMatch(command, @"^\s*colorblind\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant) || Regex.IsMatch(command, @"^\s*cb\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+        {
+            yield return null;
+            CBactive = !CBactive;
+            for (int i = 0; i < 7; i++) {
+                InsideLetters[i].text = CBactive ? HowMuchOfAnIdiotAmIMostOfTheseVariableNamesAreConfusingAsFuckWhatIsWrongWithMe[ColorOrder[i]].ToString() : " ";
+            }
+            yield break;
+        }
+
 		string commfinal=command.Replace("press ", "");
 		string[] digitstring = commfinal.Split(' ');
 		int tried;
